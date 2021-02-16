@@ -7,9 +7,11 @@
   nav {
     display: flex;
     flex-direction: row;
+    opacity: 0;
   }
 
 }
 nav.open {
   display: flex;
+  opacity: 1;
 }
