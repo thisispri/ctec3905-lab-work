@@ -1,4 +1,7 @@
 nav {
-  display: flex;
+  display: none;
   flex-direction: column;
+}
+nav.open {
+  display: flex;
 }
