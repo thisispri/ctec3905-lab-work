@@ -2,16 +2,30 @@
 
   #menuToggler {
     display: none;
+    transform: translateX(0);
   }
 
   nav {
-    display: flex;
-    flex-direction: row;
-    opacity: 0;
-  }
-
-}
-nav.open {
   display: flex;
-  opacity: 1;
+  flex-direction: column;
+
+  /* more custom styles */
+
+  position: static;
+  width: 100%;
+  top: 0;
+  transform: translateX(100vh);
+  transition: 0.5s;
+}
+
+nav.open {
+  transform: translateX(0);
+}
+
+#menuToggler {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  /* more custom styles */
 }
