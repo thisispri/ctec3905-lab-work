@@ -61,3 +61,11 @@ button {
 label {
   flex-grow: 1;
 }
+
+input[type="checkbox"] {
+  display: none;
+}
+
+input:checked + label {
+  text-decoration: line-through;
+}

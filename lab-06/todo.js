@@ -12,6 +12,12 @@ function addItem(text, done) {
   item.appendChild(label);
   item.appendChild(input);
   todo.appendChild(item);
+  const button = document.createElement('button');
+button.textContent = "×";
+button.addEventListener('click', ev => {
+  item.remove();
+});
+item.appendChild(button);
 }
 add.addEventListener('click', ev => {
   addItem(text.value);
