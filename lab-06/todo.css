@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 
 :root {
-  --hue: 20;
+  --hue: 30;
   --dark: hsl(var(--hue), 80%, 50%);
   --light: hsl(var(--hue), 80%, 90%);
 }
