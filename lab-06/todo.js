@@ -22,3 +22,13 @@ item.appendChild(button);
 add.addEventListener('click', ev => {
   addItem(text.value);
 });
+
+function clearList() {
+  while(todo.firstChild) {
+    todo.removeChild(todo.firstChild);
+  }
+}
+
+clear.addEventListener('click', ev => {
+  clearList();
+});
