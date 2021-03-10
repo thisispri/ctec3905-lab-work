@@ -9,8 +9,8 @@ function addItem(text, done) {
   input.checked = done;
   input.id = `todo${todo.querySelectorAll('li').length + 1}`;
   label.htmlFor = input.id;
-  item.appendChild(label);
   item.appendChild(input);
+item.appendChild(label);
   todo.appendChild(item);
   const button = document.createElement('button');
 button.textContent = "×";
