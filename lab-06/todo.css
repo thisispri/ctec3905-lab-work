@@ -57,3 +57,7 @@ button {
   background-color: var(--dark);
   color: var(--light);
 }
+
+label {
+  flex-grow: 1;
+}
