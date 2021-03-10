@@ -59,13 +59,14 @@ function saveToStorage() {
 	localStorage.setItem(todo.id, JSON.stringify(data));
 }
 function loadFromStorage() {
-	clearList();
 	const data = JSON.parse(localStorage.getItem(todo.id));
-	for (const item of data) {
-		addItem(item.text, item.done);
+	if(data) {
+		clearList();
+		for (const item of data) {
+			addItem(item.text, item.done);
+		}
 	}
 }
-
 loadFromStorage();
 
 clear.addEventListener('click', ev => {
