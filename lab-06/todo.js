@@ -5,3 +5,6 @@ function addItem(text) {
   item.textContent = text;
   todo.appendChild(item);
 }
+add.addEventListener('click', ev => {
+  addItem(text.value);
+});
