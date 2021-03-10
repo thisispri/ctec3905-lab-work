@@ -41,3 +41,18 @@ li:nth-child(odd) {
   background-color: var(--light);
   border-width: 0.5px 0;
 }
+
+section {
+  display: flex;
+  justify-content: space-between;
+}
+
+input, button {
+  font-size: 1em;
+}
+
+button {
+  border: 1px solid var(--light);
+  background-color: var(--dark);
+  color: var(--light);
+}
