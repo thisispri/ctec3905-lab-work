@@ -71,7 +71,8 @@ function clearResults() {
 function loadPage() {
   clearResults();
   const myObjects = objectIDs.slice((currentPage - 1) * pageSize, currentPage * pageSize);
-  myObjects.forEach(insertArticle);
+  // myObjects.forEach(insertArticle);    // old line - remove this
+  insertArticles(myObjects);              // new line replaces the above
   pageIndicator.textContent = currentPage;
 }
 
