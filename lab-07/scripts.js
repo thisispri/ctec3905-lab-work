@@ -1,3 +1,6 @@
+let pageSize = 12;
+let currentPage;
+let objectIDs;
 GET /public/collection/v1/objects/[objectID]
 "use strict";
 
