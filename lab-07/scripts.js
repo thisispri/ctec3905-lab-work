@@ -89,3 +89,9 @@ function prevPage() {
 }
 prev.addEventListener('click', prevPage);
 next.addEventListener('click', nextPage);
+
+async function insertArticles(objIds) {
+  objects = await Promise.all(objIds.map(loadObject))
+  articles = objects.map(buildArticleFromData);
+  articles.forEach(a => results.appendChild(a));
+}
