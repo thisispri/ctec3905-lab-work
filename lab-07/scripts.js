@@ -48,3 +48,8 @@ async function loadSearch(query) {
   const response = await fetch(`${baseURL}?hasImages=true&q=${query}`);
   return response.json();
 }
+
+async function doSearch() {
+  const result = await loadSearch(query.value);
+  result.objectIDs.forEach(insertArticle);
+}
