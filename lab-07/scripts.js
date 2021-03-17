@@ -52,15 +52,16 @@ async function loadSearch(query) {
   return response.json();
 }
 
-async function doSearch() {
+async function doSearch(ev) {
+  clearResults();
+  loader.classList.add("waiting");
   const result = await loadSearch(query.value);
-  objectIDs = result.objectIDs || [];   // store the search result (or an empty list) in our variable
+  objectIDs = result.objectIDs;
   count.textContent = `found ${objectIDs.length} results for "${query.value}"`;
   nPages.textContent = Math.ceil(objectIDs.length / pageSize);
-  currentPage = 1;     // set the currentPage
-  loadPage();          // load the appropriate page
+  currentPage = 1;
+  loadPage(currentPage);
 }
-
 query.addEventListener('change', doSearch);
 
 function clearResults() {
