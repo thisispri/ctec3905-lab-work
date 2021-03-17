@@ -40,3 +40,5 @@ async function insertArticle(id) {
   const article = buildArticleFromData(obj);
   results.appendChild(article);
 }
+
+GET /public/collection/v1/search
