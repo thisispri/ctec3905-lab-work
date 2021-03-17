@@ -97,3 +97,25 @@ img {
 	0% { transform: rotate(-45deg); }
 	100% { transform: rotate(45deg); }
 }
+
+.modal {
+	display: none;
+	position: fixed;
+	height: 100vh;
+	width: 100vw;
+	background-color: hsla(0, 70%, 10%, 0.7);
+	top: 0;
+	left: 0;
+	overflow-y: scroll;
+	align-items: center;
+}
+
+.modal.on {
+	display: flex;
+}
+
+.modal img {
+	height: auto;
+	position: absolute;
+	top: 0;
+}
