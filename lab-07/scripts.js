@@ -68,11 +68,12 @@ function clearResults() {
     results.firstChild.remove();
   }
 }
-function loadPage() {
-  clearResults();
-  const myObjects = objectIDs.slice((currentPage - 1) * pageSize, currentPage * pageSize);
-  // myObjects.forEach(insertArticle);    // old line - remove this
-  insertArticles(myObjects);              // new line replaces the above
+async function loadPage() {
+	clearResults();
+	const myObjects = objectIDs.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+	loader.classList.add("waiting");
+	await insertArticles(myObjects);
+	loader.classList.remove("waiting");
   pageIndicator.textContent = currentPage;
 }
 
