@@ -47,3 +47,9 @@ article {
   40% { opacity: 0; }
   100% { opacity: 1; }
 }
+
+#meta {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5em 0;
+}
