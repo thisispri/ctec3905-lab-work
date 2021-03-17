@@ -50,6 +50,7 @@ async function loadSearch(query) {
 }
 
 async function doSearch() {
+  clearResults();
   const result = await loadSearch(query.value);
   result.objectIDs.forEach(insertArticle);
 }
