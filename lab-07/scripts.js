@@ -66,3 +66,9 @@ function clearResults() {
     results.firstChild.remove();
   }
 }
+function loadPage() {
+  clearResults();
+  const myObjects = objectIDs.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+  myObjects.forEach(insertArticle);
+  pageIndicator.textContent = currentPage;
+}
