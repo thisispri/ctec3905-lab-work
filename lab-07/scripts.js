@@ -54,9 +54,11 @@ async function loadSearch(query) {
 
 async function doSearch() {
   const result = await loadSearch(query.value);
-  count.textContent = `found ${result.objectIDs.length} results for "${query.value}"`;
-  clearResults();
-  result.objectIDs.forEach(insertArticle);
+  objectIDs = result.objectIDs || [];   // store the search result (or an empty list) in our variable
+  count.textContent = `found ${objectIDs.length} results for "${query.value}"`;
+  nPages.textContent = Math.ceil(objectIDs.length / pageSize);
+  currentPage = 1;     // set the currentPage
+  loadPage();          // load the appropriate page
 }
 
 query.addEventListener('change', doSearch);
