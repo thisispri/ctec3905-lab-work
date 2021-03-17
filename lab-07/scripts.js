@@ -74,3 +74,18 @@ function loadPage() {
   myObjects.forEach(insertArticle);
   pageIndicator.textContent = currentPage;
 }
+
+function nextPage() {
+  currentPage += 1;
+  const nPages = Math.ceil(objectIDs.length / pageSize);
+  if(currentPage > nPages) { currentPage = 1;}
+  loadPage();
+}
+function prevPage() {
+  currentPage -= 1;
+  const nPages = Math.ceil(objectIDs.length / pageSize);
+  if(currentPage < 1) { currentPage = nPages;}
+  loadPage();
+}
+prev.addEventListener('click', prevPage);
+next.addEventListener('click', nextPage);
