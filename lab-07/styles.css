@@ -36,3 +36,14 @@ footer a {
 img {
   width: 100%;
 }
+
+article {
+  animation: fadeIn 1s;
+  padding: 0 1rem;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  40% { opacity: 0; }
+  100% { opacity: 1; }
+}
