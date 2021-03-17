@@ -14,3 +14,8 @@ function buildArticleFromData(obj) {
   article.appendChild(img);
   return article;
 }
+async function insertArticle(id) {
+  const obj = await loadObject(id);
+  const article = buildArticleFromData(obj);
+  results.appendChild(article);
+}
