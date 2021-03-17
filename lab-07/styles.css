@@ -6,10 +6,21 @@ body {
 }
 
 header {
-  overflow: auto;
-  padding: 0 1rem;
-  background-color: hsl(0, 70%, 50%);
-  color: white;
+	overflow: auto;
+	padding: 0 1rem;
+	background-color: hsl(0, 70%, 50%);
+	color: white;
+	display: grid;
+	grid-template-columns: 1fr auto 1fr;
+}
+header > * {
+	grid-column: 2 / 3;
+}
+
+@media screen and (min-width: 700px) {
+	header {
+		font-size: 1.2em;
+	}
 }
 
 #search {
