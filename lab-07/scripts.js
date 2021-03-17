@@ -56,3 +56,9 @@ async function doSearch() {
 }
 
 query.addEventListener('change', doSearch);
+
+function clearResults() {
+  while(results.firstChild) {
+    results.firstChild.remove();
+  }
+}
