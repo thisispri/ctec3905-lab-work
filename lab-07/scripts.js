@@ -42,3 +42,9 @@ async function insertArticle(id) {
 }
 
 GET /public/collection/v1/search
+
+async function loadSearch(query) {
+  let baseURL = `https://collectionapi.metmuseum.org/public/collection/v1/search`;
+  const response = await fetch(`${baseURL}?hasImages=true&q=${query}`);
+  return response.json();
+}
