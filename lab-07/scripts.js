@@ -1,19 +1,28 @@
 let pageSize = 12;
 let currentPage;
 let objectIDs;
-GET /public/collection/v1/objects/[objectID]
-"use strict";
 
 async function loadObject(id) {
-  const url = `https://collectionapi.metmuseum.org/public/collection/v1/objects/${id}`;
-  const response = await fetch(url);
-  return response.json();
+	const url = `https://collectionapi.metmuseum.org/public/collection/v1/objects/${id}`;
+	const response = await fetch(url);
+	return response.json();
 }
+
+async function loadSearch(query, isHighlight) {
+	let url = `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true`;
+	if(isHighlight) {
+		url = `${url}&isHighlight=${isHighlight}`;
+	}
+	url = `${url}&q=${query}`;
+	const response = await fetch(url);
+	return response.json();
+}
+
+// This function converts object data into DOM elements
 function buildArticleFromData(obj) {
 	const article = document.createElement("article");
 	const title = document.createElement("h3");
 	const primaryImageSmall = document.createElement("img");
-	const modal = document.createElement('div');
 	const primaryImage = document.createElement("img");
 	const objectInfo = document.createElement("p");
 	const objectName = document.createElement("span");
@@ -25,18 +34,20 @@ function buildArticleFromData(obj) {
 	primaryImageSmall.alt = `${obj.title} (small image)`;
 	primaryImage.src = obj.primaryImage;
 	primaryImage.alt = obj.title;
-	modal.className = "modal";
+	primaryImage.className = "modal";
 	objectName.textContent = obj.objectName;
 	objectDate.textContent = `, ${obj.objectDate}`;
 	medium.textContent = obj.medium;
 
-	article.addEventListener('click', ev => {
-		modal.classList.toggle('on');
+	primaryImageSmall.addEventListener('click', ev => {
+		primaryImage.classList.add('on');
+	});
+	primaryImage.addEventListener('click', ev => {
+		primaryImage.classList.remove('on');
 	});
 
 	article.appendChild(title);
-	article.appendChild(modal);
-	modal.appendChild(primaryImage);
+	article.appendChild(primaryImage);
 	article.appendChild(primaryImageSmall);
 	article.appendChild(objectInfo);
 	article.appendChild(medium);
@@ -49,38 +60,23 @@ function buildArticleFromData(obj) {
 	return article;
 }
 
-
-async function insertArticle(id) {
-  const obj = await loadObject(id);
-  const article = buildArticleFromData(obj);
-  results.appendChild(article);
-}
-
-GET /public/collection/v1/search
-
-async function loadSearch(query) {
-  let baseURL = `https://collectionapi.metmuseum.org/public/collection/v1/search`;
-  const response = await fetch(`${baseURL}?hasImages=true&q=${query}`);
-  return response.json();
+async function insertArticles(objIds) {
+	objects = await Promise.all(objIds.map(loadObject))
+	articles = objects.map(buildArticleFromData);
+	articles.forEach(a => results.appendChild(a));
 }
 
 async function doSearch(ev) {
-  clearResults();
-  loader.classList.add("waiting");
-  const result = await loadSearch(query.value);
-  objectIDs = result.objectIDs;
-  count.textContent = `found ${objectIDs.length} results for "${query.value}"`;
-  nPages.textContent = Math.ceil(objectIDs.length / pageSize);
-  currentPage = 1;
-  loadPage(currentPage);
+	clearResults();
+	loader.classList.add("waiting");
+	const result = await loadSearch(query.value);
+	objectIDs = result.objectIDs;
+	count.textContent = `found ${objectIDs.length} results for "${query.value}"`;
+	nPages.textContent = Math.ceil(objectIDs.length / pageSize);
+	currentPage = 1;
+	loadPage();
 }
-query.addEventListener('change', doSearch);
 
-function clearResults() {
-  while(results.firstChild) {
-    results.firstChild.remove();
-  }
-}
 async function loadPage() {
 	clearResults();
 	const myObjects = objectIDs.slice((currentPage - 1) * pageSize, currentPage * pageSize);
@@ -91,22 +87,24 @@ async function loadPage() {
 }
 
 function nextPage() {
-  currentPage += 1;
-  const nPages = Math.ceil(objectIDs.length / pageSize);
-  if(currentPage > nPages) { currentPage = 1;}
-  loadPage();
+	currentPage += 1;
+	const nPages = Math.ceil(objectIDs.length / pageSize);
+	if(currentPage > nPages) { currentPage = 1;}
+	loadPage();
 }
 function prevPage() {
-  currentPage -= 1;
-  const nPages = Math.ceil(objectIDs.length / pageSize);
-  if(currentPage < 1) { currentPage = nPages;}
-  loadPage();
+	currentPage -= 1;
+	const nPages = Math.ceil(objectIDs.length / pageSize);
+	if(currentPage < 1) { currentPage = nPages;}
+	loadPage();
 }
+
+function clearResults() {
+	while(results.firstChild) {
+		results.firstChild.remove();
+	}
+}
+
+query.addEventListener('change', doSearch);
 prev.addEventListener('click', prevPage);
 next.addEventListener('click', nextPage);
-
-async function insertArticles(objIds) {
-  objects = await Promise.all(objIds.map(loadObject))
-  articles = objects.map(buildArticleFromData);
-  articles.forEach(a => results.appendChild(a));
-}
