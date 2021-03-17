@@ -50,8 +50,9 @@ async function loadSearch(query) {
 }
 
 async function doSearch() {
-  clearResults();
   const result = await loadSearch(query.value);
+  count.textContent = `found ${result.objectIDs.length} results for "${query.value}"`;
+  clearResults();
   result.objectIDs.forEach(insertArticle);
 }
 
