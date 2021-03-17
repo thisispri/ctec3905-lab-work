@@ -53,3 +53,5 @@ async function doSearch() {
   const result = await loadSearch(query.value);
   result.objectIDs.forEach(insertArticle);
 }
+
+query.addEventListener('change', doSearch);
