@@ -10,33 +10,45 @@ async function loadObject(id) {
   return response.json();
 }
 function buildArticleFromData(obj) {
-  const article = document.createElement("article");
-  const title = document.createElement("h2");
-  const primaryImageSmall = document.createElement("img");
-  const objectInfo = document.createElement("p");
-  const objectName = document.createElement("span");
-  const objectDate = document.createElement("span");
-  const medium = document.createElement("p");
+	const article = document.createElement("article");
+	const title = document.createElement("h3");
+	const primaryImageSmall = document.createElement("img");
+	const modal = document.createElement('div');
+	const primaryImage = document.createElement("img");
+	const objectInfo = document.createElement("p");
+	const objectName = document.createElement("span");
+	const objectDate = document.createElement("span");
+	const medium = document.createElement("p");
 
-  title.textContent = obj.title;
-  primaryImageSmall.src = obj.primaryImageSmall;
-  primaryImageSmall.alt = obj.title;
-  objectName.textContent = obj.objectName;
-  objectDate.textContent = `, ${obj.objectDate}`;
-  medium.textContent = obj.medium;
+	title.textContent = obj.title;
+	primaryImageSmall.src = obj.primaryImageSmall;
+	primaryImageSmall.alt = `${obj.title} (small image)`;
+	primaryImage.src = obj.primaryImage;
+	primaryImage.alt = obj.title;
+	modal.className = "modal";
+	objectName.textContent = obj.objectName;
+	objectDate.textContent = `, ${obj.objectDate}`;
+	medium.textContent = obj.medium;
 
-  article.appendChild(title);
-  article.appendChild(primaryImageSmall);
-  article.appendChild(objectInfo);
-  article.appendChild(medium);
+	article.addEventListener('click', ev => {
+		modal.classList.toggle('on');
+	});
 
-  objectInfo.appendChild(objectName);
-  if(obj.objectDate) {
-    objectInfo.appendChild(objectDate);
-  }
+	article.appendChild(title);
+	article.appendChild(modal);
+	modal.appendChild(primaryImage);
+	article.appendChild(primaryImageSmall);
+	article.appendChild(objectInfo);
+	article.appendChild(medium);
 
-  return article;
+	objectInfo.appendChild(objectName);
+	if(obj.objectDate) {
+		objectInfo.appendChild(objectDate);
+	}
+
+	return article;
 }
+
 
 async function insertArticle(id) {
   const obj = await loadObject(id);
